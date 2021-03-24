@@ -1,23 +1,114 @@
-import React from 'react';
-import {Text, View, Image, StyleSheet, TouchableOpacity} from 'react-native';
+import React, {Component} from 'react';
+import { ScrollView } from 'react-native';
+import {Text, View, Image, StyleSheet, TouchableOpacity , FlatList} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import CustomButton from '../../components/CustomButton';
-import CustomTextInput from '../../components/CustomTextInput';
-import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
+import CustomGalleryGrid from '../../components/CustomGalleryGrid';
 
-const GalleryScreen = (props) => {
+const numColumns = 3
+const Data = [
+  {GalleryImage: require('../../assets/img/Animal1.jpeg')},
+  {GalleryImage: require('../../assets/img/Animal2.jpeg')},
+  {GalleryImage: require('../../assets/img/Animal3.jpeg')},
+  {GalleryImage: require('../../assets/img/BeachHappy.jpeg')},
+  {GalleryImage: require('../../assets/img/asset1.jpeg')},
+  {GalleryImage: require('../../assets/img/asset2.jpeg')},
+  {GalleryImage: require('../../assets/img/asset3.jpeg')},
+  {GalleryImage: require('../../assets/img/asset4.jpeg')},
+  {GalleryImage: require('../../assets/img/HikingImage.jpeg')},
+  {GalleryImage: require('../../assets/img/Travel1.jpeg')},
+  {GalleryImage: require('../../assets/img/Travel2.jpeg')},
+  {GalleryImage: require('../../assets/img/Travel3.jpeg')},
+  {GalleryImage: require('../../assets/img/Wonder.jpeg')},
+  {GalleryImage: require('../../assets/img/Animal3.jpeg')},
+  {GalleryImage: require('../../assets/img/BeachHappy.jpeg')},
+  {GalleryImage: require('../../assets/img/asset1.jpeg')},
+  {GalleryImage: require('../../assets/img/asset2.jpeg')},
+  {GalleryImage: require('../../assets/img/asset3.jpeg')},
+  {GalleryImage: require('../../assets/img/asset4.jpeg')},
+  {GalleryImage: require('../../assets/img/HikingImage.jpeg')},
+  {GalleryImage: require('../../assets/img/Animal1.jpeg')},
+  
+];
+const ModalPoup = ({visible, children}) => {
+  const [showModal, setShowModal] = React.useState(visible);
+  const scaleValue = React.useRef(new Animated.Value(0)).current;
+  React.useEffect(() => {
+    toggleModal();
+  }, [visible]);
+  const toggleModal = () => {
+    if (visible) {
+      setShowModal(true);
+      Animated.spring(scaleValue, {
+        toValue: 1,
+        duration: 300,
+        useNativeDriver: true,
+      }).start();
+    } else {
+      setTimeout(() => setShowModal(false), 200);
+      Animated.timing(scaleValue, {
+        toValue: 0,
+        duration: 300,
+        useNativeDriver: true,
+      }).start();
+    }
+  };
   return (
-   <SafeAreaView>
-       
-   </SafeAreaView>
+    <Modal transparent visible={showModal}>
+      <View style={styles.modalBackGround}>
+        <Animated.View
+          style={[styles.modalContainer, {transform: [{scale: scaleValue}]}]}>
+          {children}
+        </Animated.View>
+      </View>
+    </Modal>
   );
 };
+
+
+export default class GalleryScreen extends Component {
+  
+  renderItem = ({item , index}) =>{
+    return(
+    <View style = {styles.items}>
+     <CustomGalleryGrid GalleryImage = {item.GalleryImage}/>
+    </View>
+    )
+  }
+  render() {
+    return (
+     
+        <View style={styles.container}>
+          <View style={styles.Header}>
+            <Text style={styles.HeaderText}>Gallery</Text>
+            <TouchableOpacity
+              onPress={() => setVisible(true)}
+              style={styles.Votes}></TouchableOpacity>
+          </View>
+          <ScrollView>
+          <View style = {styles.GalleryStyles}>
+            <FlatList 
+            data = {Data}
+            renderItem = {this.renderItem}
+            numColumns = {numColumns}/>
+            
+          </View>
+          
+          <TouchableOpacity style = {styles.SortButton}>
+            <Image style = {styles.Icon} source = {require('../../assets/img/icSortBy.png')}/>
+          </TouchableOpacity>
+          </ScrollView>
+
+          
+        </View>
+      
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    
   },
   Header: {
     width: 400,
@@ -33,7 +124,36 @@ const styles = StyleSheet.create({
     marginTop: 30,
     color: 'white',
   },
+  Votes: {
+    width: 82,
+    height: 30,
+    borderRadius: 6,
+    backgroundColor: 'white',
+    position: 'absolute',
+    right: 30,
+    top: 28,
+  },
+  items : {
+    alignSelf : 'center',
+    justifyContent : 'center',
+    height : 100,
+    margin : 5,
+  },
+  GalleryStyles : {
+    paddingTop : 10
+  },
+  SortButton : {
+    width: 70,
+    height: 60,
+    borderRadius: 10,
+    backgroundColor : '#ff9803',
+    position : 'absolute',
+    bottom : 15,
+    right : 10
+  },
+  Icon : {
+    justifyContent : 'center',
+    alignSelf : 'center',
+    margin : 10
+  }
 });
-
-export default GalleryScreen;
-

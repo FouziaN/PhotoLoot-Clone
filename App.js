@@ -28,6 +28,7 @@ import ChallengeScreen from './src/containers/Screen/ChallengeScreen';
 import PrivacyPolicyScreen from './src/containers/Screen/PrivacyPolicyScreen';
 import HelpSupportScreen from './src/containers/Screen/HelpSupportScreen';
 import AboutUsScreen from './src/containers/Screen/AboutUsScreen';
+import UpComingChallengeScreen from './src/containers/Screen/UpComingChallengeScreen';
 import GalleryScreen from './src/containers/Screen/GalleryScreen';
 import HallofFameScreen from './src/containers/Screen/HallofFameScreen';
 import CurrentChallengeScreen from './src/containers/Screen/CurrentChallengeScreen';
@@ -174,6 +175,7 @@ class App extends Component {
           <Stack.Screen name = "SettingScreen" component = {SettingScreen}/>
           <Stack.Screen name = "GalleryScreen" component = {GalleryScreen}/>
           <Stack.Screen name = "CurrentChallengeScreen" component = {CurrentChallengeScreen}/>
+         <Stack.Screen name = "UpComingChallengeScreen" component = {UpComingChallengeScreen}/>
           <Stack.Screen
             name="PrivacyPolicyScreen"
             component={PrivacyPolicyScreen}
