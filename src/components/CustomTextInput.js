@@ -9,7 +9,8 @@ import {
 } from 'react-native';
 import propTypes from 'prop-types';
 
-const CustomTextInput = props => {
+const CustomTextInput = (props) => {
+  
   return (
     <View
       style={{
@@ -21,8 +22,10 @@ const CustomTextInput = props => {
         style={styles.inputStyle}
         secureTextEntry={props.secureTextEntry}
         autoCorrect={false}
+        autoCapitalize = {'none'}
         placeholder={props.placeholder}
         maxLength={props.maxLength}
+        type = {props.type}
         value={props.value}
         onChangeText={props.onChangeText}
       />
@@ -30,7 +33,7 @@ const CustomTextInput = props => {
         <TouchableOpacity
           onPress={() => props.onPasswordPress()}
           style={{position: 'absolute', right: 50}}>
-          <Image style = {{marginTop : 20}}
+          <Image style = {{marginTop : 15 }}
             source={
               props.showPassword
                 ? require('../assets/img/icEyeActive.png')

@@ -4,15 +4,39 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import CustomButton from '../../components/CustomButton';
 import CustomTextInput from '../../components/CustomTextInput';
 
+
+
 const SignUpScreen = (props) => {
+
+  const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  const passwordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{7,15}$/;
+  const nameRegex = /^[a-zA-Z]{2,40}( [a-zA-Z]{2,40})+$/;
+
+
+  const onChangeEmail = text => {
+    const isValid = emailRegex.test(text);
+    console.log(isValid);
+  };
+
+  const onChangePassword = text => {
+    const isValid = passwordRegex.test(text);
+    console.log(isValid);
+  };
+
+  const onChangeName = text => {
+    const isValid = nameRegex.test(text);
+    console.log(isValid);
+  };
+
   return (
     <SafeAreaView style={styles.container}>
+        <TouchableOpacity onPress={() => props.navigation.navigate('SignInScreen')}><Image style={styles.BackSign} source = {require('../../assets/img/backButton.png')}/></TouchableOpacity>
         <Text style = {styles.CreatAcc}>Create Account</Text>
         <Image style = {styles.Photo} source = {require('../../assets/img/icProfilePlaceholder.png')}></Image>
-        <CustomTextInput placeholder = "Name"/>
-        <CustomTextInput placeholder = "Userame"/>
-        <CustomTextInput placeholder = "Email"/>
-        <CustomTextInput placeholder = "Create Password" isPasswordEnable = "true"/>
+        <CustomTextInput placeholder = "Name" onChangeText={onChangeName}/>
+        <CustomTextInput placeholder = "Userame"onChangeText={onChangeName}/>
+        <CustomTextInput placeholder = "Email" onChangeText={onChangeEmail}/>
+        <CustomTextInput placeholder = "Create Password" isPasswordEnable = "true" onChangeText={onChangePassword}/>
         <View style = {styles.Terms}>
             <Image source = {require('../../assets/img/icCheckSelected.png')}/>
             <Text>I agree to the Terms & Conditions of PhotoLoot</Text>
@@ -85,6 +109,11 @@ const styles = StyleSheet.create({
   },
   Sign : {
       color : 'rgb(255, 152, 3)'
+  },
+  BackSign :{
+      height : 25,
+      width : 25 ,
+      marginLeft : 29.5,
   }
 });
 

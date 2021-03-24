@@ -1,12 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {Text, View, Image, StyleSheet, TouchableOpacity} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import CustomButton from '../../components/CustomButton';
 import CustomTextInput from '../../components/CustomTextInput';
 
+const SignInScreen = props => {
+  const [ State ,setState] = useState();
+  const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  const passwordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{7,15}$/;
 
+  const onChangeEmail = text => {
+    const isValid = emailRegex.test(text);
+    console.log(isValid);
+  };
 
-const SignInScreen = (props) => {
+  const onChangePassword = text => {
+    const isValid = passwordRegex.test(text);
+    console.log(isValid);
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <Image
@@ -14,12 +26,26 @@ const SignInScreen = (props) => {
         source={require('../../assets/img/icLogoOrange.png')}
       />
       <Text style={styles.SignIN}>Sign In</Text>
-      <CustomTextInput placeholder="Email Address" />
-      <CustomTextInput placeholder="Password" isPasswordEnable="true" />
-      <TouchableOpacity onPress={() => props.navigation.navigate('ForgetPassword')}>
+      <CustomTextInput
+        placeholder="Email Address"
+        type="email"
+        onChangeText={onChangeEmail}
+      />
+      <CustomTextInput
+        placeholder="Password"
+        isPasswordEnable="true"
+        onChangeText={onChangePassword}
+        secureTextEntry = 'true'
+        
+      />
+      <TouchableOpacity
+        onPress={() => props.navigation.navigate('ForgetPassword')}>
         <Text style={styles.forgotPassword}>Forget Password?</Text>
       </TouchableOpacity>
-      <CustomButton title  = "Submit" onPress={() => this.props.navigation.navigate('Details')}/>
+      <CustomButton
+        title="Submit"
+        onPress={() => props.navigation.navigate('HomeScreen')}
+      />
       <Text style={styles.connect}>Or Connect With</Text>
       <View
         style={{
@@ -28,7 +54,14 @@ const SignInScreen = (props) => {
           marginTop: 30,
         }}>
         <TouchableOpacity style={styles.socialMedia}>
-          <View style={{flexDirection: 'row', justifyContent: 'space-evenly' ,marginLeft : 10,width : 120, marginTop : 10}}>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-evenly',
+              marginLeft: 10,
+              width: 120,
+              marginTop: 10,
+            }}>
             <Image
               source={require('../../assets/img/icFb.png')}
               style={styles.icFB}></Image>
@@ -36,7 +69,14 @@ const SignInScreen = (props) => {
           </View>
         </TouchableOpacity>
         <TouchableOpacity style={styles.socialMedia}>
-        <View style={{flexDirection: 'row', justifyContent: 'space-evenly' ,marginLeft : 10,width : 120, marginTop : 10}}>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-evenly',
+              marginLeft: 10,
+              width: 120,
+              marginTop: 10,
+            }}>
             <Image
               source={require('../../assets/img/icInstagram.png')}
               style={styles.icFB}></Image>
@@ -44,12 +84,12 @@ const SignInScreen = (props) => {
           </View>
         </TouchableOpacity>
       </View>
-      <View style = {{flexDirection : 'row' , alignSelf : 'center' ,marginTop : 43.5}}>
-      <Text style = {styles.SignUP}>
-        Don’t have an account?
-      </Text>
-      <TouchableOpacity onPress={() => props.navigation.navigate('SignUpScreen')}>
-          <Text style = {styles.Sign}>Sign Up</Text>
+      <View
+        style={{flexDirection: 'row', alignSelf: 'center', marginTop: 43.5}}>
+        <Text style={styles.SignUP}>Don’t have an account?</Text>
+        <TouchableOpacity
+          onPress={() => props.navigation.navigate('SignUpScreen')}>
+          <Text style={styles.Sign}>Sign Up</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -118,19 +158,17 @@ const styles = StyleSheet.create({
   Inputs: {
     marginTop: 25,
   },
-  SignUP : {
-      
-      
-      fontWeight: '600',
+  SignUP: {
+    fontWeight: '600',
     fontStyle: 'normal',
     letterSpacing: 0,
     textAlign: 'right',
     color: '#9d9d9d',
-    fontSize : 15,
+    fontSize: 15,
   },
-  Sign : {
-      color : 'rgb(255, 152, 3)'
-  }
+  Sign: {
+    color: 'rgb(255, 152, 3)',
+  },
 });
 
 export default SignInScreen;

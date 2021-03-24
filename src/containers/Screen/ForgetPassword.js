@@ -9,6 +9,13 @@ import {createStackNavigator} from '@react-navigation/stack';
 const ForgetPassword = (props) => {
   return (
     <SafeAreaView style={styles.container}>
+         <TouchableOpacity
+        onPress={() => props.navigation.navigate('SignInScreen')}>
+        <Image
+          style={styles.BackSign}
+          source={require('../../assets/img/backButton.png')}
+        />
+      </TouchableOpacity>
       <Image
         style={styles.Icon}
         source={require('../../assets/img/icLogoOrange.png')}
@@ -56,7 +63,12 @@ const styles = StyleSheet.create({
   },
   CustomButton : {
       marginTop : 25
-  }
+  },
+  BackSign :{
+    height : 25,
+    width : 25 ,
+    marginLeft : 29.5,
+}
 });
 
 export default ForgetPassword;
