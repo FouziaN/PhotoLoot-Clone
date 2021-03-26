@@ -1,24 +1,16 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {Text, View, Image, StyleSheet, TouchableOpacity} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import CustomButton from '../../components/CustomButton';
 import CustomTextInput from '../../components/CustomTextInput';
+import EmailTextField from '../../components/EmailTextField';
+import PasswordTextField from '../../components/PasswordTextField';
 
 const SignInScreen = props => {
-  const [ State ,setState] = useState();
-  const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  const passwordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{7,15}$/;
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-  const onChangeEmail = text => {
-    const isValid = emailRegex.test(text);
-    console.log(isValid);
-  };
-
-  const onChangePassword = text => {
-    const isValid = passwordRegex.test(text);
-    console.log(isValid);
-  };
-
+  
   return (
     <SafeAreaView style={styles.container}>
       <Image
@@ -26,17 +18,15 @@ const SignInScreen = props => {
         source={require('../../assets/img/icLogoOrange.png')}
       />
       <Text style={styles.SignIN}>Sign In</Text>
-      <CustomTextInput
+      <EmailTextField
+        term={email}
         placeholder="Email Address"
-        type="email"
-        onChangeText={onChangeEmail}
+        onTermChange={newEmail => setEmail(newEmail)}
       />
-      <CustomTextInput
-        placeholder="Password"
-        isPasswordEnable="true"
-        onChangeText={onChangePassword}
-        secureTextEntry = 'true'
-        
+      <PasswordTextField
+        term={password}
+        placeHolder="Password"
+        onTermChange={newPassword => setPassword(newPassword)}
       />
       <TouchableOpacity
         onPress={() => props.navigation.navigate('ForgetPassword')}>

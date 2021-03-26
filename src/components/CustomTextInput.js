@@ -28,6 +28,7 @@ const CustomTextInput = (props) => {
         type = {props.type}
         value={props.value}
         onChangeText={props.onChangeText}
+        onEndEditing = {props.onEndEditing}
       />
       {props.isPasswordEnable ? (
         <TouchableOpacity
@@ -51,7 +52,7 @@ const styles = StyleSheet.create({
     height: 50,
     backgroundColor: 'rgb(245, 245, 245)',
     borderColor: 'white',
-    marginTop: 25,
+    marginTop: 10,
     paddingVertical: 15,
     paddingHorizontal: 15,
     width: 315,

@@ -1,12 +1,12 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Text, View, Image, StyleSheet, TouchableOpacity} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import CustomButton from '../../components/CustomButton';
-import CustomTextInput from '../../components/CustomTextInput';
-import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
+import EmailTextField from '../../components/EmailTextField';
+
 
 const ForgetPassword = (props) => {
+  const [email, setEmail] = useState('');
   return (
     <SafeAreaView style={styles.container}>
          <TouchableOpacity
@@ -25,7 +25,11 @@ const ForgetPassword = (props) => {
         Don’t worry! enter your registered email ID in {'\n'} 
         order to receive reset password instructions.
       </Text>
-      <CustomTextInput placeholder = "Email Address"/>
+      <EmailTextField
+        term={email}
+        placeholder="Email Address"
+        onTermChange={newEmail => setEmail(newEmail)}
+      />
       <CustomButton onPress={() => props.navigation.navigate('ResetPassword')} style = {styles.CustomButton} title="Submit" />
     </SafeAreaView>
   );
