@@ -3,14 +3,18 @@ import {Text, View, Image, StyleSheet, TouchableOpacity} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import CustomButton from '../../components/CustomButton';
 import CustomTextInput from '../../components/CustomTextInput';
-import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
+import {useDispatch, useSelector} from 'react-redux';
+import {updateNewPassword} from '../../modules/ChangePassword/action'
 
-const ResetPassword = (props) => {
+const ResetPassword = props => {
+  const dispatch = useDispatch();
+  const ChangePasswordReducer = useSelector(state => {
+    return state.ChangePasswordReducer;
+  });
 
   return (
     <SafeAreaView style={styles.container}>
-         <TouchableOpacity
+      <TouchableOpacity
         onPress={() => props.navigation.navigate('ForgetPassword')}>
         <Image
           style={styles.BackSign}
@@ -22,11 +26,18 @@ const ResetPassword = (props) => {
         source={require('../../assets/img/icLogoOrange.png')}
       />
       <Text style={styles.ForgetPassword}>Reset Password</Text>
-      <Text style={styles.Text}>
-      Please enter your new password below.
-      </Text>
-      <CustomTextInput placeholder = "New Password" isPasswordEnable = "true"/>
-      <CustomButton onPress={() => props.navigation.navigate('Verification')} style = {styles.CustomButton} title="Reset" />
+      <Text style={styles.Text}>Please enter your new password below.</Text>
+      <CustomTextInput
+        placeholder="New Password"
+        value={ChangePasswordReducer.newPass}
+        isPasswordEnable="true"
+        onChangeText={passwordNew => dispatch(updateNewPassword(passwordNew))}
+      />
+      <CustomButton
+        onPress={() => props.navigation.navigate('Verification')}
+        style={styles.CustomButton}
+        title="Reset"
+      />
     </SafeAreaView>
   );
 };
@@ -59,16 +70,16 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     marginTop: 15.5,
     marginLeft: 29,
-    color : 'rgb(96,96,96)'
+    color: 'rgb(96,96,96)',
   },
-  CustomButton : {
-      marginTop : 25
+  CustomButton: {
+    marginTop: 25,
   },
-  BackSign :{
-    height : 25,
-    width : 25 ,
-    marginLeft : 29.5,
-}
+  BackSign: {
+    height: 25,
+    width: 25,
+    marginLeft: 29.5,
+  },
 });
 
 export default ResetPassword;

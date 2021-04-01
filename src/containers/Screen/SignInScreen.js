@@ -5,11 +5,20 @@ import CustomButton from '../../components/CustomButton';
 import CustomTextInput from '../../components/CustomTextInput';
 import EmailTextField from '../../components/EmailTextField';
 import PasswordTextField from '../../components/PasswordTextField';
+import {useDispatch, useSelector} from 'react-redux';
+import axios from 'axios';
+import { updateEmail , updatePassword } from '../../modules/Auth/action';
+
+
 
 const SignInScreen = props => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
+  
+  const dispatch = useDispatch();
+  const authReducer = useSelector((state)=>{
+    return state.AuthReducer
+  });
   
   return (
     <SafeAreaView style={styles.container}>
@@ -19,14 +28,14 @@ const SignInScreen = props => {
       />
       <Text style={styles.SignIN}>Sign In</Text>
       <EmailTextField
-        term={email}
+        term={authReducer.email}
         placeholder="Email Address"
-        onTermChange={newEmail => setEmail(newEmail)}
+        onTermChange={newEmail => dispatch(updateEmail(newEmail))}
       />
       <PasswordTextField
-        term={password}
+        term={authReducer.password}
         placeHolder="Password"
-        onTermChange={newPassword => setPassword(newPassword)}
+        onTermChange={newPassword => dispatch(updatePassword(newPassword))}
       />
       <TouchableOpacity
         onPress={() => props.navigation.navigate('ForgetPassword')}>

@@ -33,6 +33,9 @@ import GalleryScreen from './src/containers/Screen/GalleryScreen';
 import HallofFameScreen from './src/containers/Screen/HallofFameScreen';
 import CurrentChallengeScreen from './src/containers/Screen/CurrentChallengeScreen';
 import Images from './src/constants/Images'
+import {Provider} from 'react-redux';
+import {PersistGate} from 'redux-persist/integration/react';
+import {store , persistor} from './src/reducer/store';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -147,6 +150,8 @@ const GalleryTabs = () => (
 class App extends Component {
   render() {
     return (
+      <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
       <NavigationContainer>
         <Stack.Navigator
           initialRouteName="Splash Screen"
@@ -197,6 +202,8 @@ class App extends Component {
             component={ChallengeScreen}></Stack.Screen>
         </Stack.Navigator>
       </NavigationContainer>
+      </PersistGate>
+      </Provider>
     );
   }
 }

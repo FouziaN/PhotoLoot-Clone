@@ -3,10 +3,18 @@ import {Text, View, Image, StyleSheet, TouchableOpacity} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import CustomButton from '../../components/CustomButton';
 import EmailTextField from '../../components/EmailTextField';
+import {useDispatch, useSelector} from 'react-redux';
+import { forgetPasswordEmail } from '../../modules/Auth/action';
 
 
 const ForgetPassword = (props) => {
   const [email, setEmail] = useState('');
+  const dispatch = useDispatch();
+  const authReducer = useSelector((state)=>{
+    return state.AuthReducer
+  });
+  
+
   return (
     <SafeAreaView style={styles.container}>
          <TouchableOpacity
@@ -26,9 +34,9 @@ const ForgetPassword = (props) => {
         order to receive reset password instructions.
       </Text>
       <EmailTextField
-        term={email}
+        term={authReducer.forgetPassword}
         placeholder="Email Address"
-        onTermChange={newEmail => setEmail(newEmail)}
+        onTermChange={forgetEmail => dispatch(forgetPasswordEmail(forgetEmail))}
       />
       <CustomButton onPress={() => props.navigation.navigate('ResetPassword')} style = {styles.CustomButton} title="Submit" />
     </SafeAreaView>
