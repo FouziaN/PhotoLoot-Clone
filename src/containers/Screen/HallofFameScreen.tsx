@@ -10,39 +10,39 @@ import {
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
-const ModalPoup = (visible : any, children : any) => {
-  const [showModal, setShowModal] = React.useState(visible);
-  const scaleValue = React.useRef(new Animated.Value(0)).current;
-  React.useEffect(() => {
-    toggleModal();
-  }, [visible]);
-  const toggleModal = () => {
-    if (visible) {
-      setShowModal(true);
-      Animated.spring(scaleValue, {
-        toValue: 1,
-        useNativeDriver: true,
-      }).start();
-    } else {
-      setTimeout(() => setShowModal(false), 200);
-      Animated.timing(scaleValue, {
-        toValue: 0,
-        duration: 300,
-        useNativeDriver: true,
-      }).start();
-    }
-  };
-  return (
-    <Modal transparent visible={showModal}>
-      <View style={styles.modalBackGround}>
-        <Animated.View
-          style={[styles.modalContainer, {transform: [{scale: scaleValue}]}]}>
-          {children}
-        </Animated.View>
-      </View>
-    </Modal>
-  );
-};
+// const ModalPoup = (visible : any, children : any) => {
+//   const [showModal, setShowModal] = React.useState(visible);
+//   const scaleValue = React.useRef(new Animated.Value(0)).current;
+//   React.useEffect(() => {
+//     toggleModal();
+//   }, [visible]);
+//   const toggleModal = () => {
+//     if (visible) {
+//       setShowModal(true);
+//       Animated.spring(scaleValue, {
+//         toValue: 1,
+//         useNativeDriver: true,
+//       }).start();
+//     } else {
+//       setTimeout(() => setShowModal(false), 200);
+//       Animated.timing(scaleValue, {
+//         toValue: 0,
+//         duration: 300,
+//         useNativeDriver: true,
+//       }).start();
+//     }
+//   };
+//   return (
+//     <Modal transparent visible={showModal}>
+//       <View style={styles.modalBackGround}>
+//         <Animated.View
+//           style={[styles.modalContainer, {transform: [{scale: scaleValue}]}]}>
+//           {children}
+//         </Animated.View>
+//       </View>
+//     </Modal>
+//   );
+// };
 
 const HallofFameScreen = (props : any) => {
   const [visible, setVisible] = React.useState(false);
@@ -268,7 +268,7 @@ const HallofFameScreen = (props : any) => {
         </View>
       </View>
 
-      <ModalPoup visible={visible}>
+      {/* <ModalPoup visible={visible}>
         <View style={{alignItems: 'center'}}>
           <Image
             style={styles.ImageWidth}
@@ -308,7 +308,7 @@ const HallofFameScreen = (props : any) => {
           <Image source={require('../../assets/img/share.png')} />
           <Text style={styles.shareText}>Share</Text>
         </TouchableOpacity>
-      </ModalPoup>
+      </ModalPoup> */}
     </View>
   );
 };

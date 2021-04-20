@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Animated, Modal, ScrollView } from 'react-native';
+import { ActivityIndicator, Animated, Modal, ScrollView } from 'react-native';
 import {Text, View, Image, StyleSheet, TouchableOpacity , FlatList} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import CustomGalleryGrid from '../../components/CustomGalleryGrid';
@@ -29,50 +29,54 @@ const Data = [
   {GalleryImage: require('../../assets/img/Animal1.jpeg')},
   
 ];
-const ModalPoup = (visible : any, children : any) => {
-  const [showModal, setShowModal] = React.useState(visible);
-  const scaleValue = React.useRef(new Animated.Value(0)).current;
-  React.useEffect(() => {
-    toggleModal();
-  }, [visible]);
-  const toggleModal = () => {
-    if (visible) {
-      setShowModal(true);
-      Animated.spring(scaleValue, {
-        toValue: 1,
-        useNativeDriver: true,
-      }).start();
-    } else {
-      setTimeout(() => setShowModal(false), 200);
-      Animated.timing(scaleValue, {
-        toValue: 0,
-        duration: 300,
-        useNativeDriver: true,
-      }).start();
-    }
-  };
-  return (
-    <Modal transparent visible={showModal}>
-        <Animated.View
-          style={[ {transform: [{scale: scaleValue}]}]}>
-          {children}
-        </Animated.View>
-      
-    </Modal>
-  );
-};
-
 
 export default class GalleryScreen extends Component {
-  
-  renderItem = (item : any) =>{
-    return(
-    <View style = {styles.items}>
-     <CustomGalleryGrid GalleryImage = {item.GalleryImage}/>
-    </View>
-    )
+  constructor(props : any){
+    super (props);
+    this.state = {
+         isLoading : true,
+         dataSource : null,
+    }
   }
+
+   componentDidMount () {
+
+    return fetch ('https://jsonplaceholder.typicode.com/photos')
+          .then ((response) => response.json() )
+          .then ((responseJson) => {
+
+            this.setState({
+              isLoading : false,
+              dataSource : responseJson.albumId,
+            })
+
+          })
+        .catch((error) => {
+            console.log(error)
+        })
+  
+   }
+  // renderItem = (item : any) =>{
+  //   return(
+  //   <View style = {styles.items}>
+  //    <CustomGalleryGrid GalleryImage = {item.GalleryImage}/>
+  //   </View>
+  //   )
+  // }
   render() {
+    const { dataSource, isLoading } = this.state;
+
+    if (isLoading){
+       return(
+         <View style = {styles.container}>
+           <ActivityIndicator/>
+         </View>
+       )
+    } else {
+
+      let albumId = this.state.dataSource.map((val,key) => {
+        return <View></View>
+      })
     return (
      
         <View style={styles.container}>
@@ -81,25 +85,26 @@ export default class GalleryScreen extends Component {
             <TouchableOpacity
               style={styles.Votes}></TouchableOpacity>
           </View>
-          <ScrollView>
-          <View style = {styles.GalleryStyles}>
+           <Text>Content Loading</Text>
+          {/* <View style = {styles.GalleryStyles}>
             <FlatList 
             data = {Data}
             renderItem = {this.renderItem}
             numColumns = {numColumns}/>
             
           </View>
-          
+           */}
           <TouchableOpacity style = {styles.SortButton}>
             <Image style = {styles.Icon} source = {require('../../assets/img/icSortBy.png')}/>
           </TouchableOpacity>
-          </ScrollView>
+          
 
           
         </View>
-      
+    
     );
   }
+}
 }
 
 const styles = StyleSheet.create({

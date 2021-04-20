@@ -60,6 +60,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     width: 315,
     borderRadius: 10,
+    
   },
   containerStyle: {
     flexDirection: 'column',

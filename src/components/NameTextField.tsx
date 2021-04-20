@@ -16,7 +16,7 @@ const NameTextField : React.FC<Props>= ({ term , placeHolder , onTermChange }) =
             <CustomTextInput
              autoCorrect={false}
              style={styles.TextField}
-             placeholder={placeHolder}
+             placeHolder={placeHolder}
              value={term}
              onChangeText={onTermChange}
                
