@@ -14,6 +14,7 @@
 		442C465A34CA4FCBA1C9854E /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E427E826B2B344529752F299 /* Ionicons.ttf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		84CC1E8F261AF028006DE011 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CC1E8E261AF028006DE011 /* File.swift */; };
+		84FFC3FD26349618000E2EF4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 84FFC3FC26349618000E2EF4 /* GoogleService-Info.plist */; };
 		C4026A9A53852A37186E4593 /* libPods-PhotoLootApp-PhotoLootAppTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CB4D932D289A8DAFAF7E686 /* libPods-PhotoLootApp-PhotoLootAppTests.a */; };
 		D7585BF4CA520152B7537785 /* libPods-PhotoLootApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AF67E72A48ED7282D1016F75 /* libPods-PhotoLootApp.a */; };
 /* End PBXBuildFile section */
@@ -43,6 +44,7 @@
 		79CC53883AC521B44E0C6581 /* Pods-PhotoLootApp-PhotoLootAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhotoLootApp-PhotoLootAppTests.debug.xcconfig"; path = "Target Support Files/Pods-PhotoLootApp-PhotoLootAppTests/Pods-PhotoLootApp-PhotoLootAppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = PhotoLootApp/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		84CC1E8E261AF028006DE011 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
+		84FFC3FC26349618000E2EF4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		AF67E72A48ED7282D1016F75 /* libPods-PhotoLootApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PhotoLootApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E427E826B2B344529752F299 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-ionicons/fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		ECEA17D6E3508F0396F4856F /* Pods-PhotoLootApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhotoLootApp.debug.xcconfig"; path = "Target Support Files/Pods-PhotoLootApp/Pods-PhotoLootApp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -132,6 +134,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				84FFC3FC26349618000E2EF4 /* GoogleService-Info.plist */,
 				13B07FAE1A68108700A75B9A /* PhotoLootApp */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* PhotoLootAppTests */,
@@ -256,6 +259,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
+				84FFC3FD26349618000E2EF4 /* GoogleService-Info.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				442C465A34CA4FCBA1C9854E /* Ionicons.ttf in Resources */,
 			);

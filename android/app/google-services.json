@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1067887492802",
+    "firebase_url": "https://photolootapp-8f6fa-default-rtdb.firebaseio.com",
+    "project_id": "photolootapp-8f6fa",
+    "storage_bucket": "photolootapp-8f6fa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1067887492802:android:c2d305181784172405c55b",
+        "android_client_info": {
+          "package_name": "com.photolootapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1067887492802-0r8laigc0ljrtourqd3oth5p55sucp80.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.photolootapp",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "1067887492802-7dckme63jr7bgmk25ccp09gao3orgtts.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBitfwd38xrjTXMyi1J30NGVaQv2E-_Nxw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1067887492802-7dckme63jr7bgmk25ccp09gao3orgtts.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1067887492802-b19em9m9mjm60sqi7mfkba6o4us530td.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "org.reactjs.native.example.PhotoLootApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
