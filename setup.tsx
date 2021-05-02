@@ -1,5 +1,3 @@
-import * as React from 'react';
-import App from './App';
 import firebase from '@react-native-firebase/app'
 import Auth from '@react-native-firebase/auth';
 

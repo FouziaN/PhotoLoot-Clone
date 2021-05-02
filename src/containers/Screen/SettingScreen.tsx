@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   Text,
   View,
@@ -9,42 +9,10 @@ import {
   Modal,
   Animated,
 } from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import database, { firebase } from '@react-native-firebase/database'
 
-const ModalPoup = ({visible, children}) => {
-  const [showModal, setShowModal] = React.useState(visible);
-  const scaleValue = React.useRef(new Animated.Value(0)).current;
-  React.useEffect(() => {
-    toggleModal();
-  }, [visible]);
-  const toggleModal = () => {
-    if (visible) {
-      setShowModal(true);
-      Animated.spring(scaleValue, {
-        toValue: 1,
-        duration: 300,
-        useNativeDriver: true,
-      }).start();
-    } else {
-      setTimeout(() => setShowModal(false), 200);
-      Animated.timing(scaleValue, {
-        toValue: 0,
-        duration: 300,
-        useNativeDriver: true,
-      }).start();
-    }
-  };
-  return (
-    <Modal transparent visible={showModal}>
-      <View style={styles.modalBackGround}>
-        <Animated.View
-          style={[styles.modalContainer, {transform: [{scale: scaleValue}]}]}>
-          {children}
-        </Animated.View>
-      </View>
-    </Modal>
-  );
-};
+
 
 const SettingScreen = (props: any) => {
   const [visible, setVisible] = React.useState(false);
@@ -126,7 +94,7 @@ const SettingScreen = (props: any) => {
         <Text style={styles.Text1}>Notification</Text>
         <View style={styles.Arrow}>
           <Switch
-            trackColor={{false: 'gray', true: '#5ed177'}}
+            trackColor={{ false: 'gray', true: '#5ed177' }}
             thumbColor={isEnabled ? 'white' : '#f4f3f4'}
             ios_backgroundColor="#3e3e3e"
             onValueChange={toggleSwitch}
@@ -140,7 +108,13 @@ const SettingScreen = (props: any) => {
         <Text style={styles.Text1}>Clear Search History</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.Layout}>
+      <TouchableOpacity style={styles.Layout} onPress={() => {
+        const UserId = firebase.auth().currentUser;
+        firebase.database().ref(`Users/${UserId?.uid}`).set(null).then((value) => console.log('on Delet :', value)).catch((value) => console.log('on delet error :', value))
+        UserId?.delete().then((value) => {
+          console.log('delet account:', value)
+        }).catch((value) => console.log('on delet error :', value))
+      }} >
         <Image source={require('../../assets/img/icDeactivate.png')} />
         <Text style={styles.Text1}>Deactivae Account</Text>
       </TouchableOpacity>
@@ -148,34 +122,6 @@ const SettingScreen = (props: any) => {
         <Image source={require('../../assets/img/icSignOut.png')} />
         <Text style={styles.Text1}>Sign Out</Text>
       </TouchableOpacity>
-      <ModalPoup visible={visible}>
-        <View style={{flexDirection : 'row' , justifyContent : 'space-between' ,alignSelf : 'center', width : 350}}>
-          <Text style = {styles.Clear}>Clear Search History?</Text>
-          <View style={styles.header}>
-            <TouchableOpacity onPress={() => setVisible(false)}>
-              <Text style = {styles.Clear}>Close</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-        <View style={{flexDirection: 'row' , marginTop : 15}}>
-          <Image
-            style={styles.NoIcon}
-            source={require('../../assets/img/icNo.png')}
-          />
-          <TouchableOpacity>
-          <Text style={{fontSize: 15, marginLeft: 10, marginTop: 5}}>NO</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={{flexDirection: 'row' , marginTop : 20}}>
-          <Image
-            style={styles.NoIcon}
-            source={require('../../assets/img/icYes.png')}
-          />
-          <TouchableOpacity>
-          <Text style={{fontSize: 15, marginLeft: 10, marginTop: 5}}>YES</Text>
-          </TouchableOpacity>
-        </View>
-      </ModalPoup>
     </SafeAreaView>
   );
 };
@@ -245,13 +191,13 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
     justifyContent: 'center',
   },
-  Clear : {
+  Clear: {
     fontSize: 15,
-  fontWeight: "bold",
-  fontStyle: "normal",
-  letterSpacing: 0,
-  textAlign: "left",
-  color: "#000000"
+    fontWeight: "bold",
+    fontStyle: "normal",
+    letterSpacing: 0,
+    textAlign: "left",
+    color: "#000000"
   }
 });
 

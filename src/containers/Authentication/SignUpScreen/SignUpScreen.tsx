@@ -1,35 +1,51 @@
 import React, { useState } from 'react';
 import styles from './style';
-import { Text, View, Image, StyleSheet, TouchableOpacity, Alert } from 'react-native';
+import { Text, View, Image, StyleSheet, TouchableOpacity, Alert, DrawerLayoutAndroidBase } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import CustomButton from '../../../components/CustomButton';
 import EmailTextField from '../../../components/EmailTextField';
 import PasswordTextField from '../../../components/PasswordTextField';
 import UserNameTextField from '../../../components/UserNameTextField';
 import auth from '@react-native-firebase/auth';
+import database from '@react-native-firebase/database'
+import CustomTextInput from '../../../components/CustomTextInput';
 
 const SignUpScreen = (props: any) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showLoading, setShowLoading] = useState(false);
   const [UserName, setUserName] = useState('');
+  const [location, setLocation] = useState('');
+  const [age, setAge] = useState('');
 
 
   const register = async() => {
     setShowLoading(true);
     try {
-        const doRegister = await auth().createUserWithEmailAndPassword(email, password);
-        setShowLoading(false);
-        if(doRegister.user) {
+      const doRegister = await auth().createUserWithEmailAndPassword(email, password).then((doRegister) => {
+        const uid = doRegister.user.uid;
+        const data = {
+          id: uid,
+          UserName,
+          email,
+          location,
+          age,
+          
+        };
+        database().ref(`Users/${uid}`).set(data).then(() => {
+          console.log(doRegister)
+          if (doRegister.user) {
             props.navigation.navigate('HomeScreen');
-        }
+          }
+        }) 
+      }).catch(() => { });
     } catch (e) {
-        setShowLoading(false);
-        Alert.alert(
-            e.message
-        );
+      setShowLoading(false);
+      Alert.alert(
+        e.message
+      );
     }
-};
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -53,6 +69,16 @@ const SignUpScreen = (props: any) => {
         onTermChange={(newUserName: any) => setUserName(newUserName)}
       />
 
+      <CustomTextInput
+        placeholder="Location"
+        value={location}
+        onChangeText={(newlocation: any) => setLocation(newlocation)} />
+
+      <CustomTextInput
+        placeholder="Age"
+        value={age}
+        onChangeText={(newAge: any) => setAge(newAge)} />
+
       <EmailTextField
         term={email}
         placeholder="Email Address"
@@ -60,7 +86,7 @@ const SignUpScreen = (props: any) => {
       />
       <PasswordTextField
         term={password}
-        placeholder="Create Password"
+        placeHolder="Create Password"
         onTermChange={(newPassword: any) => setPassword(newPassword)}
       />
       <View style={styles.Terms}>
